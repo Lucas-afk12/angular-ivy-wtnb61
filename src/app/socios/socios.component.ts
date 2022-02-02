@@ -24,7 +24,7 @@ export class SociosComponent implements OnInit {
   async openForm() {
     const bottomSheetRef = this.form.open(SociosSheetComponent);
     bottomSheetRef.afterDismissed().subscribe(async (profileForm) => {
-      await this.apiCall.PostSocios(profileForm.value);
+      this.apiCall.PostSocios(profileForm.value);
       let newID = this.Socios[Socios.length - 1].ID + 1;
       this.Socios.push(new Socios(profileForm.value, newID));
     });
@@ -32,9 +32,9 @@ export class SociosComponent implements OnInit {
 
   async remove() {
     console.log(this.Container);
-    Promise.all(
+    await Promise.all(
       this.Container.map(async (Socio: Socios) => {
-        await this.apiCall.deleteSocios(Socio.ID);
+        return this.apiCall.deleteSocios(Socio.ID);
       })
     );
     this.Container.forEach((a: Socios) => {

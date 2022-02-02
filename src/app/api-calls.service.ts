@@ -12,12 +12,15 @@ export class ApiCallsService {
   }
 
   PostSocios(SocioInsert: any) {
+    console.log(SocioInsert);
     return this.http
       .post('https://klk-api.herokuapp.com/socios', SocioInsert)
       .subscribe((res) => console.log(res));
   }
 
   deleteSocios(id: string) {
-    return this.http.delete(`https://klk-api.herokuapp.com/socios/${id}`);
+    return this.http
+      .delete(`https://klk-api.herokuapp.com/socios/${id}`)
+      .subscribe((res) => console.log(res));
   }
 }

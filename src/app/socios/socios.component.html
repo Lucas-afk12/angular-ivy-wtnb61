@@ -15,6 +15,7 @@
   <div class="table-container">
     <table class="table table-light table-hover table-bordered">
       <thead class="table-dark">
+        <th>-</th>
         <th>*</th>
         <th>Nombre</th>
         <th>Apellidos</th>
@@ -36,6 +37,7 @@
               (click)="Container.push(socio)"
             />
           </td>
+          <td>{{ socio.ID }}</td>
           <td>
             {{ socio.PersonalInfo.Nombre }}
           </td>

@@ -27,7 +27,7 @@ export class SociosSheetComponent {
     DNI: new FormControl(''),
     Direccion: new FormControl(''),
     genre: new FormControl(''),
-    telefono: new FormControl(''),
+    NumeroTlf: new FormControl(''),
   });
 
   constructor(private bottomsheet: MatBottomSheet) {}
