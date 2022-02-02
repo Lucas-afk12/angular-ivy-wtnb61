@@ -3,6 +3,7 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SociosSheetComponent } from '../socios-form/socios-form.component';
 import { personalInfo, Socios } from '../classes/socios';
 import { ApiCallsService } from '../api-calls.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-socios',
@@ -10,11 +11,16 @@ import { ApiCallsService } from '../api-calls.service';
   styleUrls: ['./socios.component.css'],
 })
 export class SociosComponent implements OnInit {
-  constructor(private form: MatBottomSheet, private apiCall: ApiCallsService) {}
+  constructor(
+    private form: MatBottomSheet,
+    private apiCall: ApiCallsService,
+    private router: Router
+  ) {}
 
   Socios: Socios[] = [];
 
   ngOnInit() {
+    this.Socios = [];
     this.apiCall.getSocios().subscribe((SociosArr: Socios[]) => {
       SociosArr.forEach((Socio: any) => {
         let personalInfo: any = {
@@ -42,7 +48,13 @@ export class SociosComponent implements OnInit {
     });
   }
 
-  open() {
-    this.form.open(SociosSheetComponent);
+  async open() {
+    const bottomSheetRef = this.form.open(SociosSheetComponent);
+    bottomSheetRef.afterDismissed().subscribe(async (profileForm) => {
+      await this.apiCall.PostSocios(profileForm.value);
+      setTimeout(() => {
+        this.router.navigate([this.router.url]);
+      }, 1000);
+    });
   }
 }

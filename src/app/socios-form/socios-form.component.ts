@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, EventEmitter, Output } from '@angular/core';
 import {
   MatBottomSheet,
   MatBottomSheetRef,
@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./socios-form.component.css'],
 })
 export class SociosSheetComponent {
+  @Output() usuarioSeleccionado = new EventEmitter();
+
   profileForm = new FormGroup({
     Nombre: new FormControl(''),
     Apellidos: new FormControl(''),
@@ -28,17 +30,9 @@ export class SociosSheetComponent {
     telefono: new FormControl(''),
   });
 
-  constructor(
-    private apiCall: ApiCallsService,
-    private router: Router,
-    private bottomsheet: MatBottomSheet
-  ) {}
+  constructor(private bottomsheet: MatBottomSheet) {}
 
   async onSubmit() {
-    await this.apiCall.PostSocios(this.profileForm.value);
-    await this.bottomsheet.dismiss();
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
+    await this.bottomsheet.dismiss(this.profileForm);
   }
 }
