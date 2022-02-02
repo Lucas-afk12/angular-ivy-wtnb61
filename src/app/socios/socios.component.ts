@@ -19,11 +19,28 @@ export class SociosComponent implements OnInit {
 
   Socios: Socios[] = [];
 
+  Container: Socios[] = [];
+
   async openForm() {
     const bottomSheetRef = this.form.open(SociosSheetComponent);
     bottomSheetRef.afterDismissed().subscribe(async (profileForm) => {
       await this.apiCall.PostSocios(profileForm.value);
-      location.reload();
+      let newID = this.Socios[Socios.length - 1].ID + 1;
+      this.Socios.push(new Socios(profileForm.value, newID));
+    });
+  }
+
+  async remove() {
+    console.log(this.Container);
+    Promise.all(
+      this.Container.map(async (Socio: Socios) => {
+        await this.apiCall.deleteSocios(Socio.ID);
+      })
+    );
+    this.Container.forEach((a: Socios) => {
+      this.Socios = this.Socios.filter((s) => {
+        return s !== a;
+      });
     });
   }
 
@@ -46,7 +63,7 @@ export class SociosComponent implements OnInit {
           Peliculas_alquiladas: Socio.filmsInfo.Peliculas_alquiladas,
           Peliculas_devueltas: Socio.filmsInfo.Peliculas_devueltas,
         };
-        let socio = new Socios(personalInfo, filmsInfo, Socio.Socios_id);
+        let socio = new Socios(personalInfo, Socio.Socios_id, filmsInfo);
         socio.AlquilatedCount();
         socio.DevueltasCount();
         this.Socios.push(socio);

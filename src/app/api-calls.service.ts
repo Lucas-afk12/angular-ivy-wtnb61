@@ -16,4 +16,8 @@ export class ApiCallsService {
       .post('https://klk-api.herokuapp.com/socios', SocioInsert)
       .subscribe((res) => console.log(res));
   }
+
+  deleteSocios(id: string) {
+    return this.http.delete(`https://klk-api.herokuapp.com/socios/${id}`);
+  }
 }

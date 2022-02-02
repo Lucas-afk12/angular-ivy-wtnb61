@@ -1,5 +1,5 @@
 export class Socios {
-  private Socios_id: number = 0;
+  private Socios_id: string = '0';
   private personalInfo: personalInfo;
   private filmsInfo: jobInfo;
   private createdAt: Date;
@@ -7,8 +7,8 @@ export class Socios {
 
   constructor(
     personalInfo: personalInfo,
+    Socios_id?: string,
     filmsInfo?: jobInfo,
-    Socios_id?: number,
     points?: points
   ) {
     this.personalInfo = personalInfo;
@@ -57,6 +57,10 @@ export class Socios {
   }
   get DevueltasNum() {
     if (this.FilmsInfo) return this.FilmsInfo.DevueltasCount;
+  }
+
+  get ID() {
+    return this.Socios_id;
   }
 
   AlquilatedCount() {

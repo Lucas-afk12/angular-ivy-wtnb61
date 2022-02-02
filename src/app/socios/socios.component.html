@@ -8,7 +8,9 @@
       Añadir socio
     </button>
     <button type="button" class="btn btn-warning btn-lg">Editar socio</button>
-    <button type="button" class="btn btn-danger btn-lg">Eliminar socio</button>
+    <button type="button" class="btn btn-danger btn-lg" (click)="remove()">
+      Eliminar socio
+    </button>
   </div>
   <div class="table-container">
     <table class="table table-light table-hover table-bordered">
@@ -31,6 +33,7 @@
               type="checkbox"
               value=""
               id="flexCheckChecked"
+              (click)="Container.push(socio)"
             />
           </td>
           <td>
