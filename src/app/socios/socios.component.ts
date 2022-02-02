@@ -19,6 +19,14 @@ export class SociosComponent implements OnInit {
 
   Socios: Socios[] = [];
 
+  async openForm() {
+    const bottomSheetRef = this.form.open(SociosSheetComponent);
+    bottomSheetRef.afterDismissed().subscribe(async (profileForm) => {
+      await this.apiCall.PostSocios(profileForm.value);
+      location.reload();
+    });
+  }
+
   ngOnInit() {
     this.Socios = [];
     this.apiCall.getSocios().subscribe((SociosArr: Socios[]) => {
@@ -45,16 +53,6 @@ export class SociosComponent implements OnInit {
       });
 
       console.log(this.Socios);
-    });
-  }
-
-  async open() {
-    const bottomSheetRef = this.form.open(SociosSheetComponent);
-    bottomSheetRef.afterDismissed().subscribe(async (profileForm) => {
-      await this.apiCall.PostSocios(profileForm.value);
-      setTimeout(() => {
-        this.router.navigate([this.router.url]);
-      }, 1000);
     });
   }
 }
