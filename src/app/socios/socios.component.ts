@@ -25,7 +25,9 @@ export class SociosComponent implements OnInit {
     const bottomSheetRef = this.form.open(SociosSheetComponent);
     bottomSheetRef.afterDismissed().subscribe(async (profileForm) => {
       this.apiCall.PostSocios(profileForm.value);
-      let newID = this.Socios[Socios.length - 1].ID + 1;
+      let newID = (
+        parseInt(this.Socios[this.Socios.length - 1].ID) + 1
+      ).toString(10);
       this.Socios.push(new Socios(profileForm.value, newID));
     });
   }
