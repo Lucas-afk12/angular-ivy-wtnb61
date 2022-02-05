@@ -71,7 +71,7 @@ export class SociosComponent implements OnInit {
         this.Socios.push(socio);
       });
 
-      console.log(this.Socios);
+      this.Socios.sort((n1, n2) => parseInt(n1.ID) - parseInt(n2.ID));
     });
   }
 }
