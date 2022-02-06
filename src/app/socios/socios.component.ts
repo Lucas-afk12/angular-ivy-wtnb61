@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { SociosSheetComponent } from '../socios-form/socios-form.component';
-import { personalInfo, Socios } from '../classes/socios';
+import { personalInfo, Socios, jobInfo } from '../classes/socios';
 import { ApiCallsService } from '../api-calls.service';
 import { Router } from '@angular/router';
 
@@ -50,7 +50,7 @@ export class SociosComponent implements OnInit {
     this.Socios = [];
     this.apiCall.getSocios().subscribe((SociosArr: Socios[]) => {
       SociosArr.forEach((Socio: any) => {
-        let personalInfo: any = {
+        let personalInfo: personalInfo = {
           Nombre: Socio.personalInfo.Nombre,
           Apellidos: Socio.personalInfo.Apellidos,
           Email: Socio.personalInfo.Email,
@@ -61,7 +61,7 @@ export class SociosComponent implements OnInit {
           NumeroTlf: Socio.personalInfo.NumeroTlf,
         };
 
-        let filmsInfo: any = {
+        let filmsInfo: jobInfo = {
           Peliculas_alquiladas: Socio.filmsInfo.Peliculas_alquiladas,
           Peliculas_devueltas: Socio.filmsInfo.Peliculas_devueltas,
         };

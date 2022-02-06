@@ -91,11 +91,11 @@ export interface personalInfo {
   NumeroTlf: string;
 }
 
-interface jobInfo {
+export interface jobInfo {
   Peliculas_alquiladas: [];
   Peliculas_devueltas: [];
-  AlquiladasCount: any;
-  DevueltasCount: any;
+  AlquiladasCount?: any;
+  DevueltasCount?: any;
 }
 
 interface points {
